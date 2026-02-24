@@ -1,9 +1,11 @@
+import math
+
 class Dechiffrement:
     def __init__(self, mots):
-        self.mots = mots
+        self.mots = mots        
         self.alphabet_minuscule = ["a", "à", "â", "b", "c", "ç","d", "e", "é", "è", "ê", "ë", "f", "g", "h", "i", "î", "ï", "j", "k", "l", "m", "n", "o", "ô", "ö", "p", "q", "r", "s", "t", "u",  "ù", "û", "ü", "v", "w", "x", "y", "ÿ", "z"]
         self.alphabet_majuscule = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-        self.signs_ok = [".", "!", "-", ","]
+        self.signs_ok = [".", "!", "-", ",", "’", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
     def dechiffrer_sans_clefs_avec_espaces(self, texte):
         delimiter = " "
@@ -20,6 +22,39 @@ class Dechiffrement:
         
         mots_dechiffre_str = delimiter.join(tous_mots_dechiffres)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         return mots_dechiffre_str
+    
+    def dechiffrer_avec_frequences(self, texte):
+        delimiter = " "
+        frequences = self.compte_frequence_lettre(texte)
+        lettre_e_chiffre = self.__trouver_lettre_e(frequences)
+        index_e_chiffre = self.alphabet_minuscule.index(lettre_e_chiffre)
+        index_e = self.alphabet_minuscule.index("e")
+        cle = index_e_chiffre - index_e
+        tous_les_mots_chiffres = texte.split(" ")
+        tous_mots_dechiffres = []
+        for mot_chiffre in tous_les_mots_chiffres :
+            mot_dechiffre = self.__dechiffrer_mots(mot_chiffre, cle)
+            tous_mots_dechiffres.append(mot_dechiffre)
+        
+        mots_dechiffre_str = delimiter.join(tous_mots_dechiffres)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+        return mots_dechiffre_str
+    
+    def compte_frequence_lettre(self, texte): 
+        comptages = {}
+        frequences = {}
+        for letter_alphabet in self.alphabet_minuscule : 
+            comptages[letter_alphabet] = 0
+            for lettre in texte : 
+                if letter_alphabet == lettre : 
+                    comptages[letter_alphabet] += 1
+
+        for lettre in comptages: 
+            frequences[lettre] = round(comptages[lettre] / len(texte) * 100, 2)
+        return frequences
+
+    def __trouver_lettre_e(self, frequences): 
+        lettre_e_chiffre = max(frequences, key = frequences.get)
+        return lettre_e_chiffre
     
     def __trouver_cle(self, mot_chiffre):
         cle = 0

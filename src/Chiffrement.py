@@ -2,6 +2,16 @@ class Chiffrement:
     def __init__(self):
         self.cle = 0
 
+        
+    def chiffre_texte(self, texte, cle): 
+        delimiter = " "
+        mots_chiffres = []
+        mots = texte.split(" ")
+        for mot in mots :
+            mot_chiffre = self.chiffrer(mot, cle) 
+            mots_chiffres.append(mot_chiffre)
+        return delimiter.join(mots_chiffres)
+
     def chiffrer(self, texte, cle):
         self.cle = cle
         mot_final = ""
@@ -15,6 +25,7 @@ class Chiffrement:
             else :
                 mot_final += lettre
         return mot_final
+    
 
     def __trouver_bonne_lettre(self, alphabet, lettre, total_lettres):
         index =  alphabet.index(lettre)
