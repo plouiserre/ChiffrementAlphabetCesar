@@ -7,6 +7,10 @@ class Dechiffrement:
         self.alphabet_majuscule = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.signs_ok = [".", "!", "-", ",", "’", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+    def dechiffrer_avec_cle(self, mot_chiffre, cle):
+        mot_dechiffre = self.__dechiffrer_mots(mot_chiffre, cle)
+        return mot_dechiffre
+
     def dechiffrer_sans_clefs_avec_espaces(self, texte):
         delimiter = " "
         mot_dechiffre = ""

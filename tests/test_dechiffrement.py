@@ -5,6 +5,15 @@ class DechiffrementTest(unittest.TestCase):
     dics = ["abattoir","actuellement", "concombre", "côté", "de", "du", "exploration", "force", "hasardeux", "je", "la",  
                                        "mathématique", "moi", "obscur", "père", "philosophie", "rejoins", "suis", "ton", "western"]
     
+    def test_dechiffre_mot_text_avec_cle(self):
+        texte = "Estvybyastn"
+        dechiffrement = Dechiffrement(self.dics)
+
+        mot_dechiffre = dechiffrement.dechiffrer_avec_cle(texte, 15)
+
+        self.assertEqual("Philosophie", mot_dechiffre)
+
+    
     def test_dechiffre_mot_text_bruteforce(self):
         texte = "Estvybyastn"
         dechiffrement = Dechiffrement(self.dics)
