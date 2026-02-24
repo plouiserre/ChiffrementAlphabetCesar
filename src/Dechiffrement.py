@@ -7,14 +7,20 @@ class Dechiffrement:
         self.alphabet_majuscule = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         self.signs_ok = [".", "!", "-", ",", "’", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+    def dechiffrer_avec_cle(self, mot_chiffre, cle):
+        mot_dechiffre = self.__dechiffrer_mots(mot_chiffre, cle)
+        return mot_dechiffre
+
     def dechiffrer_sans_clefs_avec_espaces(self, texte):
         delimiter = " "
         mot_dechiffre = ""
         cle = 0
         tous_les_mots_chiffres = texte.split(" ")
         tous_mots_dechiffres = []
+
+        mot_pour_trouver_cle = self.__trouver_mot_pour_deviner_clefs(tous_les_mots_chiffres)
         
-        cle = self.__trouver_cle(tous_les_mots_chiffres[0])
+        cle = self.__trouver_cle(mot_pour_trouver_cle)
 
         for mot_chiffre in tous_les_mots_chiffres :
             mot_dechiffre = self.__dechiffrer_mots(mot_chiffre, cle)
@@ -22,6 +28,22 @@ class Dechiffrement:
         
         mots_dechiffre_str = delimiter.join(tous_mots_dechiffres)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         return mots_dechiffre_str
+    
+    def __trouver_mot_pour_deviner_clefs(self, tous_les_mots_chiffres): 
+        mot_pour_trouver_cle = ""
+        for mot in tous_les_mots_chiffres : 
+            if len(mot) > 3 and self.__not_wrong_signs(mot) :
+                mot_pour_trouver_cle = mot
+                break
+        return mot_pour_trouver_cle
+    
+    def __not_wrong_signs(self, mot):
+        is_ok = True 
+        for letter in mot :
+            if letter in self.signs_ok : 
+                is_ok = False
+                break
+        return is_ok
     
     def dechiffrer_avec_frequences(self, texte):
         delimiter = " "

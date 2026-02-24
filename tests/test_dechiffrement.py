@@ -3,7 +3,16 @@ from src.Dechiffrement import Dechiffrement
 
 class DechiffrementTest(unittest.TestCase):
     dics = ["abattoir","actuellement", "concombre", "côté", "de", "du", "exploration", "force", "hasardeux", "je", "la",  
-                                       "mathématique", "moi", "obscur", "père", "philosophie", "rejoins", "suis", "ton", "western"]
+                                       "mathématique", "marquée", "moi", "obscur", "père", "philosophie", "rejoins", "suis", "ton", "western"]
+    
+    def test_dechiffre_mot_text_avec_cle(self):
+        texte = "Estvybyastn"
+        dechiffrement = Dechiffrement(self.dics)
+
+        mot_dechiffre = dechiffrement.dechiffrer_avec_cle(texte, 15)
+
+        self.assertEqual("Philosophie", mot_dechiffre)
+
     
     def test_dechiffre_mot_text_bruteforce(self):
         texte = "Estvybyastn"
@@ -28,6 +37,14 @@ class DechiffrementTest(unittest.TestCase):
         mot_dechiffre = dechiffrement.dechiffrer_sans_clefs_avec_espaces(texte)
 
         self.assertEqual("Philosophie Mathématique Français", mot_dechiffre)
+
+    def test_dechiffre_une_phrases_bruteforce(self):
+        texte = "U’èuuïî 1866 mzÿ tèxwzïî vèx zu ïbïuîtîuÿ fôéèxxî, zu voïuùtjuî ôuîçvsôwzï îÿ ôuîçvsôgèfsî wzî vîxyùuuî u’è yèuy iùzÿî ùzfsôï"
+        dechiffrement = Dechiffrement(self.dics)
+
+        mot_dechiffre = dechiffrement.dechiffrer_sans_clefs_avec_espaces(texte)
+
+        self.assertEqual("L’année 1866 fut marquée par un événement bizarre, un phénomène inexpliqué et inexplicable que personne n’a sans doute oublié", mot_dechiffre)
 
     def test_dechiffre_deux_phrases_bruteforce(self):
         texte = "Pg vxmv wsr ùiüg. Xgôsmrv-qsm, fx êtwh sèvêxü fg pd Lsüêg!!"
